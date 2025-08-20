@@ -40,6 +40,11 @@ export default class MissionParser {
                 if (!["N", "S", "W", "E"].some(d => initialDirection === d))
                     throw Error(`Parâmetro para a direção inválido: ${initialParams[2]}`);
 
+                if (this.rovers.some((r) => r.x === initialX && r.y === initialY))
+                    throw new Error(
+                        `Há mais de um rover na posição: X: ${initialX} Y: ${initialY}`,
+                    );
+
                 this.rovers.push({ x: initialX, y: initialY, direction: initialDirection, commands: [] });
                 //Comandos para o rover
             } else if (params[lineIndex].length == 1) {
