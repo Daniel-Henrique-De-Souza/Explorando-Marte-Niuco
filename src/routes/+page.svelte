@@ -4,8 +4,8 @@
 
     let messages: string[] = $state([]);
 
-    let x = $state(5);
-    let y = $state(5);
+    let w = $state(5);
+    let h = $state(5);
 
     let rovers: any[] = $state([]);
 
@@ -16,13 +16,15 @@
             let parser = new MissionParser();
             parser.parse(commands);
 
-            x = parser.width;
-            y = parser.height;
+            w = parser.width;
+            h = parser.height;
             rovers = parser.rovers;
+
+            currentRover = currentCommand = 0;
 
             nextCommand();
         } catch (error) {
-            if (error instanceof Error) messages.push(error.message);
+            if (error instanceof Error) sendMessage(error.message);
             console.error(error);
         }
     }
@@ -30,31 +32,39 @@
     let currentRover = 0;
     let currentCommand = 0;
     function nextCommand() {
-        let rover = rovers[currentRover];
-        let command = rover.commands[currentCommand];
+        setTimeout(() => {
+            let rover = rovers[currentRover];
+            let command = rover.commands[currentCommand];
 
-        switch (command) {
-            case "L":
-                turnLeft(rover);
-                break;
-            case "R":
-                turnRight(rover);
-                break;
-            case "M":
-                moveForward(rover);
-                break;
-        }
+            switch (command) {
+                case "L":
+                    turnLeft(rover);
+                    break;
+                case "R":
+                    turnRight(rover);
+                    break;
+                case "M":
+                    try {
+                        moveForward(rover);
+                    } catch (error) {
+                        if (error instanceof Error)
+                            sendMessage(error.message);
+                        return;
+                    }
+                    break;
+            }
 
-        currentCommand++;
-        if (currentCommand >= rover.commands.length) {
-            messages.push(
-                `Saída R${currentRover + 1}: ${rover.x} ${rover.y} ${rover.direction}`,
-            );
-            currentCommand = 0;
-            currentRover++;
-        }
+            currentCommand++;
+            if (currentCommand >= rover.commands.length) {
+                sendMessage(
+                    `Saída R${currentRover + 1}: ${rover.x} ${rover.y} ${rover.direction}`,
+                );
+                currentCommand = 0;
+                currentRover++;
+            }
 
-        if (currentRover < rovers.length) setTimeout(() => nextCommand(), 1000);
+            if (currentRover < rovers.length) nextCommand();
+        }, 1000);
     }
 
     let directions = ["N", "E", "S", "W"];
@@ -72,20 +82,50 @@
     }
 
     function moveForward(rover: any) {
+        let position = { x: rover.x, y: rover.y };
+
         switch (rover.direction) {
             case "N":
-                rover.y++;
+                position.y++;
                 break;
             case "S":
-                rover.y--;
+                position.y--;
                 break;
             case "W":
-                rover.x--;
+                position.x--;
                 break;
             case "E":
-                rover.x++;
+                position.x++;
                 break;
         }
+
+        if (checkBounds(position) && checkOtherRovers(position)) {
+            rover.x = position.x;
+            rover.y = position.y;
+        }
+    }
+
+    function checkBounds(newPosition: any): boolean {
+        if (
+            newPosition.x < 0 ||
+            newPosition.x > w ||
+            newPosition.y < 0 ||
+            newPosition.y > h
+        )
+            throw new Error(
+                `Nova posição do R${currentRover + 1} inválida: X: ${newPosition.x} Y: ${newPosition.y}`,
+            );
+
+        return true;
+    }
+
+    function checkOtherRovers(newPosition: any): boolean {
+        if (rovers.some((r) => r.x === newPosition.x && r.y === newPosition.y))
+            throw new Error(
+                `Já existe um rover na posição: X: ${newPosition.x} Y: ${newPosition.y}`,
+            );
+
+        return true;
     }
 
     function sendKey(key: string) {
@@ -100,6 +140,10 @@
         }
 
         commands += key;
+    }
+
+    function sendMessage(message: string) {
+        messages = [message, ...messages];
     }
 
     function getRotationDegree(rover: any) {
@@ -118,19 +162,19 @@
 
 <div class="main">
     <div class="plain">
-        <div class="container" style="--w: {x + 1}; --h: {y + 1};">
+        <div class="container" style="--w: {w + 1}; --h: {h + 1};">
             <div class="v-rule">
-                {#each Array(x + 1) as _, index}
-                    <div class="cell">{x - index}</div>
+                {#each Array(w + 1) as _, index}
+                    <div class="cell">{w - index}</div>
                 {/each}
             </div>
             <div class="h-rule">
-                {#each Array(y + 1) as _, index}
+                {#each Array(h + 1) as _, index}
                     <div class="cell">{index}</div>
                 {/each}
             </div>
             <div class="board">
-                {#each Array((x + 1) * (y + 1)) as item}
+                {#each Array((w + 1) * (h + 1)) as item}
                     <div class="cell">{item}</div>
                 {/each}
                 <div class="rovers">
@@ -364,6 +408,7 @@
         gap: 5px;
         display: flex;
         flex-direction: column;
+        overflow-y: auto;
     }
 
     .log-item {
