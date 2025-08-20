@@ -15,7 +15,7 @@ export default class MissionParser {
 
         let lines = text.split('\n');
         let params = lines.map(line => {
-            return line.split(' ');
+            return line.split(' ').filter(p => p.trim().length > 0);
         });
 
         if (params.length == 0)
