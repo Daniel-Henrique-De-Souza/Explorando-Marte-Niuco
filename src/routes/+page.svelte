@@ -2,6 +2,8 @@
     import { onMount } from "svelte";
     import MissionParser from "../controllers/MissionParser";
 
+    let messages: string[] = $state([]);
+
     let x = 5;
     let y = 5;
     let items = Array((x + 1) * (y + 1));
@@ -11,11 +13,16 @@
         { x: 1, y: 1, direction: "W" },
     ];
 
-    let commands = ``;
+    let commands = $state("");
 
     function sendMission() {
-        let parser = new MissionParser();
-        parser.parse(commands);
+        try {
+            let parser = new MissionParser();
+            parser.parse(commands);
+        } catch (error) {
+            if (error instanceof Error) messages.push(error.message);
+            console.error(error);
+        }
     }
 
     function sendKey(key: string) {
@@ -120,13 +127,20 @@
         <div class="mission-report">
             <div class="title">Relatório da Missão</div>
             <div class="buttons">
-                <div class="btn">Limpar</div>
+                <div
+                    class="btn"
+                    onclick={() => {
+                        messages = [];
+                    }}
+                >
+                    Limpar
+                </div>
                 <div class="btn">Salvar</div>
             </div>
             <div class="log">
-                <div class="log-item">Mensagem 1</div>
-                <div class="log-item">Mensagem 2</div>
-                <div class="log-item">Mensagem 3</div>
+                {#each messages as message}
+                    <div class="log-item">{message}</div>
+                {/each}
             </div>
         </div>
     </div>
