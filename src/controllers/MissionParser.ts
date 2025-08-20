@@ -50,7 +50,7 @@ export default class MissionParser {
                         continue;
                     }
 
-                    this.rovers[this.rovers.length - 1].commands.push(commandString.split(''));
+                    this.rovers[this.rovers.length - 1].commands = [...this.rovers[this.rovers.length - 1].commands, ...commandString.split('')];
                 }
             }
 
