@@ -63,19 +63,19 @@ export default class Commander {
         }, 1000);
     }
 
-    turnLeft(rover: any) {
+    turnLeft(rover: Rover) {
         let newDir = this.directions.indexOf(rover.direction) - 1;
         if (newDir < 0) newDir = 3;
         rover.direction = this.directions[newDir];
     }
 
-    turnRight(rover: any) {
+    turnRight(rover: Rover) {
         let newDir = this.directions.indexOf(rover.direction) + 1;
         if (newDir > 3) newDir = 0;
         rover.direction = this.directions[newDir];
     }
 
-    moveForward(rover: any) {
+    moveForward(rover: Rover) {
         let position = { x: rover.x, y: rover.y };
 
         switch (rover.direction) {

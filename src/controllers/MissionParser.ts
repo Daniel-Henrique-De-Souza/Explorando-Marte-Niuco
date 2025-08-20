@@ -4,7 +4,7 @@ export default class MissionParser {
 
     width: number = 1;
     height: number = 1;
-    rovers: any[];
+    rovers: Rover[];
     constructor() {
         this.rovers = [];
     }
@@ -56,12 +56,14 @@ export default class MissionParser {
                 if (!["N", "S", "W", "E"].some(d => initialDirection === d))
                     throw Error(`Parâmetro para a direção inválido: ${initialParams[2]}`);
 
-                if (this.rovers.some((r) => r.x === initialX && r.y === initialY))
+                if (this.rovers.some((r) => r.x == initialX && r.y == initialY) === true)
                     throw new Error(
                         `Há mais de um rover na posição: X: ${initialX} Y: ${initialY}`,
                     );
 
-                this.rovers.push({ x: initialX, y: initialY, direction: initialDirection, commands: [] });
+                let newRover = new Rover(initialX, initialY);
+                newRover.direction = initialDirection;
+                this.rovers.push(newRover);
                 //Comandos para o rover
             } else if (params[lineIndex].length == 1) {
                 if (this.rovers.length > 0) {
