@@ -37,7 +37,8 @@ export default class MissionParser {
                 if (!Number.isInteger(initialY))
                     throw Error(`Parâmetro para Y inválido: ${initialParams[1]}`);
 
-                //TODO: Verificar se a direção também é válida
+                if (!["N", "S", "W", "E"].some(d => initialDirection === d))
+                    throw Error(`Parâmetro para a direção inválido: ${initialParams[2]}`);
 
                 this.rovers.push({ x: initialX, y: initialY, direction: initialDirection, commands: [] });
                 //Comandos para o rover
