@@ -4,14 +4,10 @@
 
     let messages: string[] = $state([]);
 
-    let x = 5;
-    let y = 5;
-    let items = Array((x + 1) * (y + 1));
+    let x = $state(5);
+    let y = $state(5);
 
-    let rovers = [
-        { x: 0, y: 0, direction: "E" },
-        { x: 1, y: 1, direction: "W" },
-    ];
+    let rovers: any[] = $state([]);
 
     let commands = $state("");
 
@@ -19,9 +15,76 @@
         try {
             let parser = new MissionParser();
             parser.parse(commands);
+
+            x = parser.width;
+            y = parser.height;
+            rovers = parser.rovers;
+
+            nextCommand();
         } catch (error) {
             if (error instanceof Error) messages.push(error.message);
             console.error(error);
+        }
+    }
+
+    let currentRover = 0;
+    let currentCommand = 0;
+    function nextCommand() {
+        let rover = rovers[currentRover];
+        let command = rover.commands[currentCommand];
+
+        switch (command) {
+            case "L":
+                turnLeft(rover);
+                break;
+            case "R":
+                turnRight(rover);
+                break;
+            case "M":
+                moveForward(rover);
+                break;
+        }
+
+        currentCommand++;
+        if (currentCommand >= rover.commands.length) {
+            messages.push(
+                `Saída R${currentRover + 1}: ${rover.x} ${rover.y} ${rover.direction}`,
+            );
+            currentCommand = 0;
+            currentRover++;
+        }
+
+        if (currentRover < rovers.length) setTimeout(() => nextCommand(), 1000);
+    }
+
+    let directions = ["N", "E", "S", "W"];
+
+    function turnLeft(rover: any) {
+        let newDir = directions.indexOf(rover.direction) - 1;
+        if (newDir < 0) newDir = 3;
+        rover.direction = directions[newDir];
+    }
+
+    function turnRight(rover: any) {
+        let newDir = directions.indexOf(rover.direction) + 1;
+        if (newDir > 3) newDir = 0;
+        rover.direction = directions[newDir];
+    }
+
+    function moveForward(rover: any) {
+        switch (rover.direction) {
+            case "N":
+                rover.y++;
+                break;
+            case "S":
+                rover.y--;
+                break;
+            case "W":
+                rover.x--;
+                break;
+            case "E":
+                rover.x++;
+                break;
         }
     }
 
@@ -67,7 +130,7 @@
                 {/each}
             </div>
             <div class="board">
-                {#each items as item}
+                {#each Array((x + 1) * (y + 1)) as item}
                     <div class="cell">{item}</div>
                 {/each}
                 <div class="rovers">
