@@ -1,3 +1,4 @@
+import Rover from "../models/Rover";
 import { MAX_PLAIN_HEIGHT, MAX_PLAIN_WIDTH } from "../Statics";
 
 export default class MissionParser {
