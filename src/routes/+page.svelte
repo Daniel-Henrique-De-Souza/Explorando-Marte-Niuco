@@ -93,7 +93,18 @@ MMRMMRMRRM
                 <div class="btn">Send</div>
             </div>
         </div>
-        <div class="mission-report">Relatório da Missão</div>
+        <div class="mission-report">
+            <div class="title">Relatório da Missão</div>
+            <div class="buttons">
+                <div class="btn">Limpar</div>
+                <div class="btn">Salvar</div>
+            </div>
+            <div class="log">
+                <div class="log-item">Mensagem 1</div>
+                <div class="log-item">Mensagem 2</div>
+                <div class="log-item">Mensagem 3</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -216,7 +227,7 @@ MMRMMRMRRM
     }
 
     .btn:hover {
-        background: rgba(255,255,255,.5);
+        background: rgba(255, 255, 255, 0.5);
         cursor: pointer;
         color: black;
     }
@@ -237,5 +248,26 @@ MMRMMRMRRM
         width: 100%;
         height: 50%;
         background: #555;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .log {
+        height: 100%;
+        background: black;
+        border-radius: 10px;
+        border: 1px solid white;
+        padding: 10px;
+        gap: 5px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .log-item {
+        border-radius: 10px;
+        border: 1px solid white;
+        padding: 10px;
     }
 </style>
