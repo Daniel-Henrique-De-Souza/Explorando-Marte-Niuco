@@ -8,6 +8,13 @@
         { x: 1, y: 1, direction: "W" },
     ];
 
+    let commands = `5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM
+`;
+
     function getRotationDegree(rover: any) {
         switch (rover.direction) {
             case "E":
@@ -56,7 +63,36 @@
         </div>
     </div>
     <div class="left-panel">
-        <div class="mission-control">Controle da Missão</div>
+        <div class="mission-control">
+            <div class="title">Controle da Missão</div>
+            <div class="buttons">
+                <div class="btn">Abrir</div>
+                <div class="btn">Salvar</div>
+            </div>
+            <textarea class="input-text">{commands}</textarea>
+            <div class="keyboard">
+                <div class="btn">1</div>
+                <div class="btn">2</div>
+                <div class="btn">3</div>
+                <div class="btn">N</div>
+                <div class="btn">Return</div>
+                <div class="btn">4</div>
+                <div class="btn">5</div>
+                <div class="btn">6</div>
+                <div class="btn">S</div>
+                <div class="btn">Space</div>
+                <div class="btn">7</div>
+                <div class="btn">8</div>
+                <div class="btn">9</div>
+                <div class="btn">W</div>
+                <div class="btn">-</div>
+                <div class="btn">-</div>
+                <div class="btn">0</div>
+                <div class="btn">-</div>
+                <div class="btn">E</div>
+                <div class="btn">Send</div>
+            </div>
+        </div>
         <div class="mission-report">Relatório da Missão</div>
     </div>
 </div>
@@ -159,6 +195,42 @@
         width: 100%;
         height: 50%;
         background: #444;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 5px;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        border-radius: 10px;
+        border: 1px solid white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn:hover {
+        background: rgba(255,255,255,.5);
+        cursor: pointer;
+        color: black;
+    }
+
+    .input-text {
+        width: 100%;
+        height: 100px;
+        resize: none;
+    }
+
+    .keyboard {
+        display: grid;
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
     }
 
     .mission-report {
