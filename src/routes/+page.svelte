@@ -1,4 +1,7 @@
 <script lang="ts">
+    import { onMount } from "svelte";
+    import MissionParser from "../controllers/MissionParser";
+
     let x = 5;
     let y = 5;
     let items = Array((x + 1) * (y + 1));
@@ -8,12 +11,26 @@
         { x: 1, y: 1, direction: "W" },
     ];
 
-    let commands = `5 5
-1 2 N
-LMLMLMLMM
-3 3 E
-MMRMMRMRRM
-`;
+    let commands = ``;
+
+    function sendMission() {
+        let parser = new MissionParser();
+        parser.parse(commands);
+    }
+
+    function sendKey(key: string) {
+        if (key === "Clear") {
+            commands = "";
+            return;
+        }
+
+        if (key === "Backspace") {
+            commands = commands.substring(0, commands.length - 1);
+            return;
+        }
+
+        commands += key;
+    }
 
     function getRotationDegree(rover: any) {
         switch (rover.direction) {
@@ -69,28 +86,35 @@ MMRMMRMRRM
                 <div class="btn">Abrir</div>
                 <div class="btn">Salvar</div>
             </div>
-            <textarea class="input-text">{commands}</textarea>
+            <textarea class="input-text" bind:value={commands}></textarea>
             <div class="keyboard">
-                <div class="btn">1</div>
-                <div class="btn">2</div>
-                <div class="btn">3</div>
-                <div class="btn">N</div>
-                <div class="btn">Return</div>
-                <div class="btn">4</div>
-                <div class="btn">5</div>
-                <div class="btn">6</div>
-                <div class="btn">S</div>
-                <div class="btn">Space</div>
-                <div class="btn">7</div>
-                <div class="btn">8</div>
-                <div class="btn">9</div>
-                <div class="btn">W</div>
+                <div class="btn" onclick={() => sendKey("L")}>L</div>
+                <div class="btn" onclick={() => sendKey("R")}>R</div>
+                <div class="btn" onclick={() => sendKey("M")}>M</div>
                 <div class="btn">-</div>
+                <div class="btn" onclick={() => sendKey("Clear")}>Limpar</div>
+                <div class="btn" onclick={() => sendKey("1")}>1</div>
+                <div class="btn" onclick={() => sendKey("2")}>2</div>
+                <div class="btn" onclick={() => sendKey("3")}>3</div>
+                <div class="btn" onclick={() => sendKey("4")}>N</div>
+                <div class="btn" onclick={() => sendKey("\n")}>Return</div>
+                <div class="btn" onclick={() => sendKey("4")}>4</div>
+                <div class="btn" onclick={() => sendKey("5")}>5</div>
+                <div class="btn" onclick={() => sendKey("6")}>6</div>
+                <div class="btn" onclick={() => sendKey("S")}>S</div>
+                <div class="btn" onclick={() => sendKey(" ")}>Space</div>
+                <div class="btn" onclick={() => sendKey("7")}>7</div>
+                <div class="btn" onclick={() => sendKey("8")}>8</div>
+                <div class="btn" onclick={() => sendKey("9")}>9</div>
+                <div class="btn" onclick={() => sendKey("W")}>W</div>
+                <div class="btn" onclick={() => sendKey("Backspace")}>
+                    {"<="}
+                </div>
                 <div class="btn">-</div>
-                <div class="btn">0</div>
+                <div class="btn" onclick={() => sendKey("0")}>0</div>
                 <div class="btn">-</div>
-                <div class="btn">E</div>
-                <div class="btn">Send</div>
+                <div class="btn" onclick={() => sendKey("E")}>E</div>
+                <div class="btn" onclick={() => sendMission()}>Send</div>
             </div>
         </div>
         <div class="mission-report">
