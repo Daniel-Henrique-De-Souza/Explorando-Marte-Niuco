@@ -1,3 +1,5 @@
+import { MAX_PLAIN_HEIGHT, MAX_PLAIN_WIDTH } from "../Statics";
+
 export default class MissionParser {
 
     width: number = 1;
@@ -8,18 +10,32 @@ export default class MissionParser {
     }
 
     parse(text: string) {
+        if (text.trim().length == 0)
+            return;
+
         let lines = text.split('\n');
         let params = lines.map(line => {
             return line.split(' ');
         });
 
+        if (params.length == 0)
+            return;
+
         //Primeira linha define o tamanho do planalto
-        try {
-            this.width = Number.parseInt(params[0][0]);
-            this.height = Number.parseInt(params[0][1]);
-        } catch (error: any) {
-            throw Error("Tamanho do planalto inválido");
-        }
+        if (params[0].length != 2)
+            throw Error("Parâmetro para planalto inválido.");
+
+        this.width = Number.parseInt(params[0][0]);
+        this.height = Number.parseInt(params[0][1]);
+
+        if (!Number.isInteger(this.width))
+            throw Error(`Parâmetro para largura inválido: ${this.width}`);
+
+        if (!Number.isInteger(this.height))
+            throw Error(`Parâmetro para altura inválido: ${this.height}`);
+
+        if (this.width > MAX_PLAIN_WIDTH || this.height > MAX_PLAIN_HEIGHT)
+            throw Error("Valor para planalto excedeu o limite máximo permitido.");
 
         //Se a linha tiver 2 números e uma letra, é uma nova sonda
         let lineIndex = 1;
