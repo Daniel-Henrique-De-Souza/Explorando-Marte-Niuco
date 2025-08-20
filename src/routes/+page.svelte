@@ -2,6 +2,24 @@
     let x = 5;
     let y = 5;
     let items = Array((x + 1) * (y + 1));
+
+    let rovers = [
+        { x: 0, y: 0, direction: "E" },
+        { x: 1, y: 1, direction: "W" },
+    ];
+
+    function getRotationDegree(rover: any) {
+        switch (rover.direction) {
+            case "E":
+                return 90;
+            case "S":
+                return 180;
+            case "W":
+                return 270;
+        }
+
+        return 0;
+    }
 </script>
 
 <div class="main">
@@ -21,6 +39,19 @@
                 {#each items as item}
                     <div class="cell">{item}</div>
                 {/each}
+                <div class="rovers">
+                    {#each rovers as rover, index}
+                        <div
+                            class="cell rover"
+                            style="transform: translate(calc({rover.x} * (var(--cell-size) - 1px)), calc({rover.y +
+                                1} * (var(--cell-size) - 1px) * -1)); --r: {getRotationDegree(
+                                rover,
+                            )}deg;"
+                        >
+                            R{index + 1}
+                        </div>
+                    {/each}
+                </div>
             </div>
         </div>
     </div>
@@ -55,6 +86,7 @@
         background: #222;
         display: flex;
         justify-content: center;
+        overflow: auto;
     }
 
     .container {
@@ -102,6 +134,25 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .rovers {
+        position: relative;
+        width: 100%;
+    }
+
+    .rover {
+        position: absolute;
+        border-radius: 50%;
+    }
+
+    .rover::after {
+        content: "|";
+        position: absolute;
+        transform: translateY(calc(var(--cell-size) / 2 * -1));
+        rotate: var(--r);
+        font-weight: 900;
+        font-size: larger;
     }
 
     .mission-control {
