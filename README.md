@@ -51,7 +51,15 @@ No terminal, o Vite irá disponibilizar um endereço web, acesse-o pelo seu nave
 * **RoverView.svelte**: O rover.  
 * **ControlPanel.svelte**: Painel com teclado virtual.  
 * **ReportPanel.svelte**: Painel de relatório.  
-* **Board.svelte**: Planalto.  
+* **Board.svelte**: Planalto.
+
+### **Testes (tests/*):**  
+  
+* **Commander.spec.ts**: Verifica a função de adição, carregamento do planato, rovers, início e condução dos comandos.  
+* **InputParser.spec.ts**: Testa as entradas de texto em diferentes condições.  
+* **MoveForwardCommand.spec.ts**: Verifica se ocorre o movimento e se está sendo respeitado os limites e posições de outros rovers.
+* **TurnLeftCommand.spec.ts**: Testa o giro à esquerda nas diferentes direções.
+* **TurnRightCommand.spec.ts**: Testa o giro à direita nas diferentes direções.
 ##   
 ## **Decisões do Projeto**  
 
@@ -65,7 +73,7 @@ No terminal, o Vite irá disponibilizar um endereço web, acesse-o pelo seu nave
 ### **Strategy Pattern**  
  
 Como a entrada é texto, são necessários analisadores (“Parsers”) para traduzir as informações, utilizando sempre a função “parse”. Após isso, construir de fato os objetos para que possamos manipula-los dentro do código, utilizando os construtores (“Builders”), com a função “build”. Caso novos recursos sejam adicionados, é interessante haver estes contratos para garantir que sigam esse padrão ao analisar novas informações no texto e posteriormente construí-las.  
-##   
+
 ### **Command Pattern**  
   
 Para respeitar o princípio de responsabilidade única, resolvi criar uma classe abstrata de um comando e as respectivas ações em classes herdadas. Assim, há uma única classe para o comando L, R, e M. Se futuramente fosse introduzido o comando J, de “Jump”, fica muito mais fácil para implementação, além de que, automaticamente melhora a distribuição dos testes unitários. Todas essas classes de comando são gerenciadas pela classe Commander, que dentro de um dicionário, recebe a letra, e a respectiva classe que executa o comando. Com isso é necessário registrar todos os comandos antes, senão, será considerado um comando inválido.  
@@ -86,8 +94,7 @@ O SvelteKit possui duas palavras reservadas, que servem para depurar tanto o có
 Quando estive desenvolvendo a classe **InputParser**, coloquei "debugger" dentro da função "parse", que serve como um breakpoint. Com o painel de ferramentas do desenvolvedor aberto, utilizei a aba “Fontes” (Sources). Quando clico no botão “Send” do teclado virtual no navegador, aparece uma tela levemente escura, que destaca a linha onde eu havia colocado “debugger” no Visual Code. Ao passar com o mouse em cima, pude validar as informações dos objetos nas linhas anteriores e ter certeza de que o texto estava sendo analisado corretamente.
   
 ## **Testes Unitários**  
-  
-**Localização:** tests  
+
 **Comando:**  
 >npm run test  
   
@@ -96,14 +103,7 @@ Quando estive desenvolvendo a classe **InputParser**, coloquei "debugger" dentro
   
 **Gerar relatório de coverage:**  
 >npm run cov  
-  
-## **Testes:**  
-  
-* **Commander.spec.ts**: Verifica a função de adição, carregamento do planato, rovers, início e condução dos comandos.  
-* **InputParser.spec.ts**: Testa as entradas de texto em diferentes condições.  
-* **MoveForwardCommand.spec.ts**: Verifica se ocorre o movimento e se está sendo respeitado os limites e posições de outros rovers.
-* **TurnLeftCommand.spec.ts**: Testa o giro à esquerda nas diferentes direções.
-* **TurnRightCommand.spec.ts**: Testa o giro à direita nas diferentes direções. 
+
 ## **Agentes de IA Utilizados**  
   
 **ChatGPT:** Para resolver problemas de comportamento, geração de códigos repetitivos e prover algumas sugestões.
