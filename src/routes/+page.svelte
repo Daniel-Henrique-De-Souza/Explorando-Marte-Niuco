@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import MissionParser from "../controllers/MissionParser";
+    import InputParser from "../controllers/InputParser";
     import Commander from "../controllers/Commander";
     import Board from "../views/organisms/Board.svelte";
     import ReportPanel from "../views/molecules/ReportPanel.svelte";
@@ -22,7 +22,7 @@
 
     function sendMission() {
         try {
-            let parser = new MissionParser();
+            let parser = new InputParser();
             parser.parse(commands);
 
             w = parser.width;

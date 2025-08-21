@@ -1,5 +1,5 @@
 import { it, expect, describe } from "vitest"
-import MissionParser from "../../src/controllers/MissionParser";
+import InputParser from "../../src/controllers/InputParser";
 
 const correctText = `5 5
 1 2 N
@@ -26,7 +26,7 @@ L`;
 describe("parse test", () => {
     it("will not throw any error", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         //Assert
@@ -35,7 +35,7 @@ describe("parse test", () => {
 
     it("will throw plain error", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         //Assert
@@ -43,7 +43,7 @@ describe("parse test", () => {
     });
     it("will throw plain width error", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         //Assert
@@ -51,7 +51,7 @@ describe("parse test", () => {
     });
     it("will throw plain height error", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         //Assert
@@ -59,7 +59,7 @@ describe("parse test", () => {
     });
     it("will throw plain max size error", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         //Assert
@@ -67,7 +67,7 @@ describe("parse test", () => {
     });
     it("will throw rover invalid x error", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         //Assert
@@ -75,7 +75,7 @@ describe("parse test", () => {
     });
     it("will throw rover invalid y error", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         //Assert
@@ -83,7 +83,7 @@ describe("parse test", () => {
     });
     it("will throw rover invalid direction error", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         //Assert
@@ -91,7 +91,7 @@ describe("parse test", () => {
     });
     it("will throw multiple rovers error", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         //Assert
@@ -99,7 +99,7 @@ describe("parse test", () => {
     });
     it("will have 5 columns", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         parser.parse(correctText);
@@ -109,7 +109,7 @@ describe("parse test", () => {
     });
     it("will have 5 rows", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         parser.parse(correctText);
@@ -119,7 +119,7 @@ describe("parse test", () => {
     });
     it("will have 2 rovers", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         parser.parse(correctText);
@@ -129,7 +129,7 @@ describe("parse test", () => {
     });
     it("first rover will be in N", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         parser.parse(correctText);
@@ -139,7 +139,7 @@ describe("parse test", () => {
     });
     it("first rover will have 9 commands", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         parser.parse(correctText);
@@ -149,7 +149,7 @@ describe("parse test", () => {
     });
     it("second rover will be in E", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         parser.parse(correctText);
@@ -159,7 +159,7 @@ describe("parse test", () => {
     });
     it("second rover will have 10 commands", () => {
         //Arrange
-        let parser = new MissionParser();
+        let parser = new InputParser();
 
         //Act
         parser.parse(correctText);

@@ -1,7 +1,8 @@
 import Rover from "../models/Rover";
 import { MAX_PLAIN_HEIGHT, MAX_PLAIN_WIDTH } from "../Statics";
+import type IParser from "./IParser";
 
-export default class MissionParser {
+export default class InputParser implements IParser {
 
     width: number = 1;
     height: number = 1;
