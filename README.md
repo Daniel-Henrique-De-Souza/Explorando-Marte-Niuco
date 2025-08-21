@@ -24,9 +24,10 @@ Rode a aplicação:
 No terminal, o Vite irá disponibilizar um endereço web, acesse-o pelo seu navegador. Na tela que aparecer, siga estes passos:  
   
 1. Digite as dimensões do planalto (ex.: 5 5).  
-2. Digite a posição inicial e direção da sonda (ex.: 1 1 N).  
-3. Digite os comandos (ex.: MMR).  
-4. Veja a posição final ou mensagens de erro (colisão ou fora dos limites).  
+2. Crie uma nova linha e digite a posição inicial e direção da sonda (ex.: 1 1 N).  
+3. Crie mais uma linha e digite os comandos (ex.: MMR).
+4. Aperte "Send" no teclado virtual.
+5. Veja a execução em andamento, e depois a posição final ou mensagens de erro (planalto inválido, fora dos limites, colisão ou outros rovers) na parte de relatórios logo abaixo.
 ##   
 ## **Estrutura do Código**  
   
