@@ -1,4 +1,4 @@
-# **Explorando Marte - Desafio Niuco 2025**  
+# **Explorando Marte | Desafio Niuco 2025**  
   
 Esta é uma aplicação em **TypeScript**, utilizando o framework **SvelteKit** para o desafio técnico da Niuco, onde sondas (rovers) em Marte são controladas com os seguintes comandos:  
   
@@ -58,12 +58,13 @@ No terminal, o Vite irá disponibilizar um endereço web, acesse-o pelo seu nave
 * **Alteração de comandos**: Para evitar confusões na hora de rodar o projeto, resolvi remover comandos não utilizados e adicionar outros para facilitar a execução de testes unitários e coverage.
 * **Atomic Design**: Escolhi este padrão porque fica mais fácil para explorar entre as pastas.
 * **Prototipagem no Penpot**: Para facilitar a construção da parte visual, escolhi utilizar esta ferramenta para agilizar o processo tanto para o planejamento inicial, quanto para o acabamento.
+* **Deixar variáveis em um lugar só**: Visando uma boa organização do projeto, resolvi colocar todas as principais variáveis dentro do arquivo **Statics.ts**.
 
 ## **Design Patterns Escolhidos**  
 
 ### **Strategy Pattern**  
  
-Como a entrada é texto, são necessários analisadores (“Parsers”) para traduzir as informações, utilizando sempre a função “parse”. Após isso, construir de fato os objetos para que possamos manipula-los dentro do código, utilizando os construtores (“Builders”), com a função “build”. Caso novos recursos sejam adicionados, é interessante haver estes contratos para garantir que sigam esse padrão ao analizar novas informações no texto e posteriormente construí-las.  
+Como a entrada é texto, são necessários analisadores (“Parsers”) para traduzir as informações, utilizando sempre a função “parse”. Após isso, construir de fato os objetos para que possamos manipula-los dentro do código, utilizando os construtores (“Builders”), com a função “build”. Caso novos recursos sejam adicionados, é interessante haver estes contratos para garantir que sigam esse padrão ao analisar novas informações no texto e posteriormente construí-las.  
 ##   
 ### **Command Pattern**  
   
@@ -80,7 +81,7 @@ Ao criar novos rovers, fica muito melhor utilizar este padrão, pois com única 
 * **DIP (Dependency Inversion Principle):** A classe **Commander** recebe abstrações de **Command**, o que permite se criar novos comandos se necessário, mas não dependendo disso.
 ## **Debugging**  
   
-O SvelteKir possui duas palavras reservados, que servem para depurar tanto o código, quanto os componentes visuais. Estes são: “@debug” e “debugger”.  
+O SvelteKit possui duas palavras reservadas, que servem para depurar tanto o código, quanto os componentes visuais. Estes são: “@debug” e “debugger”.  
 
 Quando estive desenvolvendo a classe **InputParser**, coloquei "debugger" dentro da função "parse", que serve como um breakpoint. Com o painel de ferramentas do desenvolvedor aberto, utilizei a aba “Fontes” (Sources). Quando clico no botão “Send” do teclado virtual no navegador, aparece uma tela levemente escura, que destaca a linha onde eu havia colocado “debugger” no Visual Code. Ao passar com o mouse em cima, pude validar as informações dos objetos nas linhas anteriores e ter certeza de que o texto estava sendo analisado corretamente.
   
@@ -100,12 +101,12 @@ Quando estive desenvolvendo a classe **InputParser**, coloquei "debugger" dentro
   
 * **Commander.spec.ts**: Verifica a função de adição, carregamento do planato, rovers, início e condução dos comandos.  
 * **InputParser.spec.ts**: Testa as entradas de texto em diferentes condições.  
-* **MoveForwardCommand.spec.ts**: Verifica se ocorre o movimento e se está sendo respeitados os limites e posições de outros rovers.
-* **TurnLeftCommand.spec.ts**: Testa o giro à esquerda nas diferentes posições.
-* **TurnRightCommand.spec.ts**: Testa o giro à direita nas diferentes posições. 
+* **MoveForwardCommand.spec.ts**: Verifica se ocorre o movimento e se está sendo respeitado os limites e posições de outros rovers.
+* **TurnLeftCommand.spec.ts**: Testa o giro à esquerda nas diferentes direções.
+* **TurnRightCommand.spec.ts**: Testa o giro à direita nas diferentes direções. 
 ## **Agentes de IA Utilizados**  
   
-**ChatGPT:** Para resolver problemas de comportamento, geração de códigos repetitivos e algumas sugestões.
+**ChatGPT:** Para resolver problemas de comportamento, geração de códigos repetitivos e prover algumas sugestões.
 
 **Agente da Pesquisa do Google:** Para verificação de sintaxe.
 
