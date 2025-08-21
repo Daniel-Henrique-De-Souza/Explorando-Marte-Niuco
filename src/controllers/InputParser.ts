@@ -1,14 +1,17 @@
 import Rover from "../models/Rover";
 import { MAX_PLAIN_HEIGHT, MAX_PLAIN_WIDTH } from "../Statics";
 import type IParser from "./IParser";
+import RoverBuilder from "./RoverBuilder";
 
 export default class InputParser implements IParser {
 
     width: number = 1;
     height: number = 1;
     rovers: Rover[];
+    private roverBuilder: RoverBuilder;
     constructor() {
         this.rovers = [];
+        this.roverBuilder = new RoverBuilder();
     }
 
     parse(text: string) {
@@ -63,9 +66,10 @@ export default class InputParser implements IParser {
                         `Há mais de um rover na posição: X: ${initialX} Y: ${initialY}`,
                     );
 
-                let newRover = new Rover(initialX, initialY);
-                newRover.direction = initialDirection;
-                this.rovers.push(newRover);
+                this.rovers.push(this.roverBuilder.new()
+                    .setPosition(initialX, initialY)
+                    .setDirection(initialDirection)
+                    .build());
                 //Comandos para o rover
             } else if (params[lineIndex].length == 1) {
                 if (this.rovers.length > 0) {
