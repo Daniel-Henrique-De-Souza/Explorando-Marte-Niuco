@@ -25,7 +25,11 @@
     commander.addCommand("M", new moveForwardCommand());
     commander.setNextCommandListener(() => {
         setTimeout(() => {
-            commander.nextCommand();
+            try {
+                commander.nextCommand();
+            } catch (error) {
+                if (error instanceof Error) sendMessage(error.message);
+            }
         }, NEXT_COMMAND_TIMEOUT_MILLISECONDS);
     });
 
