@@ -115,9 +115,9 @@ Para validar isso, vamos supor que queremos testar o envio de missões. As miss�
 
 Configurei a pipeline de CI solicitando para o ChatGPT o código pronto do arquivo YAML, visando uma aplicação em Node JS. Após isso, verifiquei se o código gerado possuía as últimas versões de @checkout, @setup-node, além de verificar se o comando "npm run test" estava sendo interpretado corretamente.
   
-## **Vídeos no YouTube**  
+## **Vídeo no YouTube**  
   
-Veja todo o andamento no seguinte link:  
+Veja como foi todo o andamento no seguinte link:  
   
 [Desafio Niuco 2025 | Explorando Marte | DevLog](https://youtu.be/QCx0rNE_yO0)  
   
