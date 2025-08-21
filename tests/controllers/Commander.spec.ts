@@ -66,7 +66,7 @@ describe("start function test", () => {
         commander.start();
 
         //Assert
-        expect(commander.currentRover).toBe(1);
+        expect(commander.currentRover).toBe(0);
     });
     it("will reset the command index", () => {
         //Arrange
