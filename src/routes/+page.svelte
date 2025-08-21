@@ -5,6 +5,9 @@
     import Board from "../views/organisms/Board.svelte";
     import ReportPanel from "../views/molecules/ReportPanel.svelte";
     import ControlPanel from "../views/molecules/ControlPanel.svelte";
+    import TurnLeftCommand from "../controllers/commands/TurnLeftCommand";
+    import TurnRightCommand from "../controllers/commands/TurnRightCommand";
+    import moveForwardCommand from "../controllers/commands/MoveForwardCommand";
 
     let messages: string[] = $state([]);
 
@@ -15,6 +18,9 @@
 
     let commands = $state("");
     let commander = new Commander();
+    commander.addCommand("L", new TurnLeftCommand());
+    commander.addCommand("R", new TurnRightCommand());
+    commander.addCommand("M", new moveForwardCommand());
 
     commander.setMessageListener((message: any) => {
         sendMessage(message);
