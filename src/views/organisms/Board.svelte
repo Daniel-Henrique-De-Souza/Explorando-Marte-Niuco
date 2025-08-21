@@ -1,5 +1,6 @@
 <script lang="ts">
     import { getRotationDegree } from "../../Utils";
+    import RoverView from "../atoms/RoverView.svelte";
     let { w = $bindable(), h = $bindable(), rovers = $bindable() } = $props();
 </script>
 
@@ -27,7 +28,7 @@
                         rover,
                     )}deg;"
                 >
-                    R{index + 1}
+                    <RoverView number={index + 1} direction={rover.direction} />
                 </div>
             {/each}
         </div>
@@ -47,8 +48,6 @@
         position: absolute;
         width: var(--cell-size);
         height: calc(((var(--cell-size) - 1px) * var(--h)) + 2px);
-        border: 1px solid white;
-        background: blue;
     }
 
     .h-rule {
@@ -57,17 +56,14 @@
         position: absolute;
         width: calc(((var(--cell-size) - 1px) * var(--h)) + 2px);
         height: var(--cell-size);
-        border: 1px solid white;
         top: calc(((var(--cell-size) - 1px) * var(--h)) + 2px);
         left: var(--cell-size);
-        background: red;
     }
 
     .board {
         position: absolute;
         width: calc(((var(--cell-size) - 1px) * var(--w)) + 2px);
         height: calc(((var(--cell-size) - 1px) * var(--h)) + 2px);
-        border: 1px solid white;
         display: flex;
         flex-wrap: wrap;
         left: var(--cell-size);
@@ -76,7 +72,7 @@
     .cell {
         width: calc(var(--cell-size) - 1px);
         height: calc(var(--cell-size) - 1px);
-        border: 1px solid white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -89,15 +85,17 @@
 
     .rover {
         position: absolute;
-        border-radius: 50%;
+        /* border-radius: 50%; */
+        transition: transform 0.2s ease-in-out;
+        filter: drop-shadow(-5px 0 0 rgba(0, 0, 0, 0.25));
     }
 
-    .rover::after {
+    /* .rover::after {
         content: "|";
         position: absolute;
         transform: translateY(calc(var(--cell-size) / 2 * -1));
         rotate: var(--r);
         font-weight: 900;
         font-size: larger;
-    }
+    } */
 </style>

@@ -25,7 +25,7 @@
         <Button onClick={() => sendKey("L")}>L</Button>
         <Button onClick={() => sendKey("R")}>R</Button>
         <Button onClick={() => sendKey("M")}>M</Button>
-        <Button>-</Button>
+        <div></div>
         <Button onClick={() => sendKey("Clear")}>Limpar</Button>
         <Button onClick={() => sendKey("1")}>1</Button>
         <Button onClick={() => sendKey("2")}>2</Button>
@@ -44,9 +44,9 @@
         <Button onClick={() => sendKey("Backspace")}>
             {"<="}
         </Button>
-        <Button>-</Button>
+        <div></div>
         <Button onClick={() => sendKey("0")}>0</Button>
-        <Button>-</Button>
+        <div></div>
         <Button onClick={() => sendKey("E")}>E</Button>
         <Button onClick={() => onSend()}>Send</Button>
     </div>
@@ -55,12 +55,20 @@
 <style>
     .mission-control {
         width: 100%;
-        height: 50%;
-        background: #444;
+        height: 60%;
+        background: #393244;
         padding: 10px;
         display: flex;
         flex-direction: column;
         gap: 10px;
+    }
+
+    .mission-control > textarea {
+        border: 1px solid cyan;
+        color: cyan;
+        background: black;
+        border-radius: 10px;
+        padding: 10px;
     }
 
     .input-text {
@@ -73,5 +81,6 @@
         display: grid;
         grid-template-rows: repeat(4, 1fr);
         grid-template-columns: repeat(5, 1fr);
+        gap: 5px;
     }
 </style>
