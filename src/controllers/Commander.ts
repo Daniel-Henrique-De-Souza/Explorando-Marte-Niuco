@@ -42,13 +42,14 @@ export default class Commander {
         let rover = this.rovers[this.currentRover];
         let command = rover.commands[this.currentCommand];
 
-        if (!(command in this.availableCommands))
-            throw new Error(`Comando inválido: ${command}. Comandos disponíveis: ${Object.keys(this.availableCommands).join(", ")}`);
-        else {
-            let success = this.availableCommands[command].execute(rover, this);
-            if (success === false)
-                throw new Error(`O comando '${command}' não foi bem sucedido.`);
-        }
+        if (command)
+            if (!(command in this.availableCommands))
+                throw new Error(`Comando inválido: ${command}. Comandos disponíveis: ${Object.keys(this.availableCommands).join(", ")}`);
+            else {
+                let success = this.availableCommands[command].execute(rover, this);
+                if (success === false)
+                    throw new Error(`O comando '${command}' não foi bem sucedido.`);
+            }
 
         this.currentCommand++;
         if (this.currentCommand >= rover.commands.length) {
