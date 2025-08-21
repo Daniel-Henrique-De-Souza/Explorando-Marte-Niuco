@@ -8,6 +8,7 @@
     import TurnLeftCommand from "../controllers/commands/TurnLeftCommand";
     import TurnRightCommand from "../controllers/commands/TurnRightCommand";
     import moveForwardCommand from "../controllers/commands/MoveForwardCommand";
+    import { NEXT_COMMAND_TIMEOUT_MILLISECONDS } from "../Statics";
 
     let messages: string[] = $state([]);
 
@@ -21,6 +22,11 @@
     commander.addCommand("L", new TurnLeftCommand());
     commander.addCommand("R", new TurnRightCommand());
     commander.addCommand("M", new moveForwardCommand());
+    commander.setNextCommandListener(() => {
+        setTimeout(() => {
+            commander.nextCommand();
+        }, NEXT_COMMAND_TIMEOUT_MILLISECONDS);
+    });
 
     commander.setMessageListener((message: any) => {
         sendMessage(message);

@@ -25,37 +25,41 @@ export default class Commander {
         this.messageCallback = callback;
     }
 
+    private nextCommandCallback?: any;
+    setNextCommandListener(callback: any) {
+        this.nextCommandCallback = callback;
+    }
+
     currentRover = 0;
     currentCommand = 0;
     start() {
         this.currentRover = this.currentCommand = 0;
-        this.nextCommand();
+        //this.nextCommand();
+        this.nextCommandCallback?.();
     }
 
     nextCommand() {
-        setTimeout(() => {
-            let rover = this.rovers[this.currentRover];
-            let command = rover.commands[this.currentCommand];
+        let rover = this.rovers[this.currentRover];
+        let command = rover.commands[this.currentCommand];
 
-            if (!(command in this.availableCommands))
-                throw new Error(`Comando inválido: ${command}. Comandos disponíveis: ${Object.keys(this.availableCommands).join(", ")}`);
-            else {
-                let success = this.availableCommands[command].execute(rover, this);
-                if (success === false)
-                    throw new Error(`O comando '${command}' não foi bem sucedido.`);
-            }
+        if (!(command in this.availableCommands))
+            throw new Error(`Comando inválido: ${command}. Comandos disponíveis: ${Object.keys(this.availableCommands).join(", ")}`);
+        else {
+            let success = this.availableCommands[command].execute(rover, this);
+            if (success === false)
+                throw new Error(`O comando '${command}' não foi bem sucedido.`);
+        }
 
-            this.currentCommand++;
-            if (this.currentCommand >= rover.commands.length) {
-                this.messageCallback?.(
-                    `Saída R${this.currentRover + 1}: ${rover.x} ${rover.y} ${rover.direction}`,
-                );
-                this.currentCommand = 0;
-                this.currentRover++;
-            }
+        this.currentCommand++;
+        if (this.currentCommand >= rover.commands.length) {
+            this.messageCallback?.(
+                `Saída R${this.currentRover + 1}: ${rover.x} ${rover.y} ${rover.direction}`,
+            );
+            this.currentCommand = 0;
+            this.currentRover++;
+        }
 
-            if (this.currentRover < this.rovers.length) this.nextCommand();
-        }, 1000);
+        if (this.currentRover < this.rovers.length) this.nextCommandCallback?.();
     }
 
 }
