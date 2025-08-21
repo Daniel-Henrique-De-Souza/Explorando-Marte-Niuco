@@ -9,4 +9,8 @@ export default class Rover {
         this.y = y;
     }
 
+    toDict() {
+        return { x: this.x, y: this.y, direction: this.direction, commands: this.commands };
+    }
+
 }

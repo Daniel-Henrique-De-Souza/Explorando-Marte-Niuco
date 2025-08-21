@@ -1,4 +1,3 @@
-import Rover from "../models/Rover";
 import { MAX_PLAIN_HEIGHT, MAX_PLAIN_WIDTH } from "../Statics";
 import type IParser from "./IParser";
 import RoverBuilder from "./RoverBuilder";
@@ -7,7 +6,7 @@ export default class InputParser implements IParser {
 
     width: number = 1;
     height: number = 1;
-    rovers: Rover[];
+    rovers: any[];
     private roverBuilder: RoverBuilder;
     constructor() {
         this.rovers = [];
@@ -72,7 +71,8 @@ export default class InputParser implements IParser {
                 this.rovers.push(this.roverBuilder.new()
                     .setPosition(initialX, initialY)
                     .setDirection(initialDirection)
-                    .build());
+                    .build()
+                    .toDict());
                 //Comandos para o rover
             } else if (params[lineIndex].length == 1) {
                 if (this.rovers.length > 0) {

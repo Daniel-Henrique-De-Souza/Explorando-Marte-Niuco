@@ -11,7 +11,7 @@
     let w = $state(5);
     let h = $state(5);
 
-    let rovers: any[] = $state([]);
+    let rovers: any = $state([]);
 
     let commands = $state("");
     let commander = new Commander();
@@ -45,19 +45,15 @@
 
 <div class="main">
     <div class="plain">
-        <Board {w} {h} {rovers} />
+        <Board {w} {h} bind:rovers />
     </div>
     <div class="left-panel">
-        <ControlPanel bind:commands={commands} onSend={() => sendMission()} />
-        <ReportPanel bind:messages={messages} />
+        <ControlPanel bind:commands onSend={() => sendMission()} />
+        <ReportPanel bind:messages />
     </div>
 </div>
 
 <style>
-    :root {
-        --cell-size: 40px;
-    }
-
     .main {
         width: 100vw;
         height: 100vh;
