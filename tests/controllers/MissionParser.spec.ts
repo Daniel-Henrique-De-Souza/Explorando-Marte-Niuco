@@ -15,6 +15,8 @@ const invalidRoverX = `5 5
 ? 1 N`;
 const invalidRoverY = `5 5
 1 ? N`;
+const invalidRoverXY = `1 1
+2 0 N`;
 const invalidRoverDirection = `5 5
 1 1 H`;
 const multipleRoversSamePosition = `5 5
@@ -88,6 +90,14 @@ describe("parse test", () => {
         //Act
         //Assert
         expect(() => parser.parse(invalidRoverDirection)).toThrowError(/^Parâmetro para a direção inválido/g);
+    });
+    it("will throw rover out of bounds error", () => {
+        //Arrange
+        let parser = new InputParser();
+
+        //Act
+        //Assert
+        expect(() => parser.parse(invalidRoverXY)).toThrowError(/^Rover fora dos limites/g);
     });
     it("will throw multiple rovers error", () => {
         //Arrange

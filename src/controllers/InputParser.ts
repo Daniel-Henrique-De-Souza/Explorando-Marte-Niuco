@@ -58,6 +58,9 @@ export default class InputParser implements IParser {
                 if (!Number.isInteger(initialY))
                     throw Error(`Parâmetro para Y inválido: ${initialParams[1]}`);
 
+                if (initialX < 0 || initialX > this.width || initialY < 0 || initialY > this.height)
+                    throw Error(`Rover fora dos limites: W: ${this.width} H: ${this.height} X: ${initialX} Y: ${initialY}`);
+
                 if (!["N", "S", "W", "E"].some(d => initialDirection === d))
                     throw Error(`Parâmetro para a direção inválido: ${initialParams[2]}`);
 
