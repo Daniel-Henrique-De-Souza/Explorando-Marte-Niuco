@@ -81,8 +81,8 @@ Ao criar novos rovers, fica muito melhor utilizar este padrão, pois com única 
 ## **Debugging**  
   
 O SvelteKir possui duas palavras reservados, que servem para depurar tanto o código, quanto os componentes visuais. Estes são: “@debug” e “debugger”.  
-  
-Para validar isso, vamos supor que queremos testar o envio de missões. As missões são geradas na classe InputParser, abra ela. Agora, execute a aplicação. Depois, com o painel de ferramentas do desenvolvedor aberto, vá até a aba “Fontes” (Sources). Se você digitar “debugger” após uma determinada linha, isso criará um breakpoint. Coloque em qualquer lugar dentro da função “parse”, no Visual Code, e clique no botão “Send” do teclado virtual no navegador. Verá que aparecerá uma tela levemente escura, e destacará a linha que você colocou “debugger” no Visual Code. Se passar com o mouse em cima, poderá validar as informações dos objetos nas linhas anteriores.  
+
+Quando estive desenvolvendo a classe InputParser, coloquei "debugger" dentro da função "parse", que serve como um breakpoint. Com o painel de ferramentas do desenvolvedor aberto, utilize a aba “Fontes” (Sources). Quando clico no botão “Send” do teclado virtual no navegador, aparecere uma tela levemente escura, que destaca a linha que onde eu havia colocado “debugger” no Visual Code. Ao passar com o mouse em cima, pude validar as informações dos objetos nas linhas anteriores para ver se o texto estava sendo analisado corretamente.
   
 ## **Testes Unitários**  
   
