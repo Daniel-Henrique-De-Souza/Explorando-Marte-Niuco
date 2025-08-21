@@ -2,7 +2,7 @@ import type Command from "./commands/Command";
 
 export default class Commander {
 
-    private availableCommands: Record<string, Command> = {};
+    availableCommands: Record<string, Command> = {};
 
     addCommand(letter: string, command: Command) {
         this.availableCommands[letter] = command;
