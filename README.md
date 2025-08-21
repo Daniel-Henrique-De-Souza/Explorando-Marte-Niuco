@@ -111,7 +111,9 @@ Para validar isso, vamos supor que queremos testar o envio de missões. As miss�
 
 ## **CI com GitHub Actions**  
   
-**Arquivo:**.github/workflows/ci.yml  
+**Arquivo:** .github/workflows/ci.yml
+
+Configurei a pipeline de CI solicitando para o ChatGPT o código pronto do arquivo YAML, visando uma aplicação em Node JS. Após isso, verifiquei se o código gerado possuía as últimas versões de @checkout, @setup-node, além de verificar se o comando "npm run test" estava sendo interpretado corretamente.
   
 ## **Vídeos no YouTube**  
   
