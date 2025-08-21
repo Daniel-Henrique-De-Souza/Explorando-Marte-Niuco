@@ -1,14 +1,26 @@
-    :root {
-        --cell-size: 40px;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+:root {
+    --cell-size: 60px;
+}
 
-    body {
-        background: black;
-        color: white;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Orbitron", sans-serif;
+}
+
+body {
+    background: black;
+    color: white;
+}
+
+.title {
+    font-weight: 600;
+}
+
+::selection {
+    background: white;
+    color: black;
+}
